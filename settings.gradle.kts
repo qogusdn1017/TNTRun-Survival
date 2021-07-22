@@ -1,1 +1,1 @@
-rootProject.name = "hyeon-sample-plugin"
+rootProject.name = "TNTRun-Survival"

@@ -1,0 +1,31 @@
+# Copyright (c) 2021 BaeHyeonWoo
+#
+#  Licensed under the General Public License, Version 3.0 (the "License");
+#  you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://opensource.org/licenses/gpl-3.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# 게임 플레이 중 스톱워치 옵션 / StopWatch option while playing the game.
+stopwatch: true
+
+# 게임 플레이 도중 블록 끝자락 감지 / Detection at the edge of the block while playing the game.
+block-edge-detection: false
+
+# 플레이어가 컨테이너형 블록을 밟을 시 내용물 비우는 옵션 / Container emptying option when player step on it.
+container-empty: false
+
+# 스톱워치 저장 값. *건들지 마시오.* / StopWatch saving value. DON'T TOUCH.
+stopwatch-value: ""
+
+# 블록 모서리 감지 옵션이 켜져있을때 즉시 포탈 타지는 옵션 / Instant Portal option when Block Edge Detection.
+instant-portal: false
+
+# 엔딩 옵션. / Ending option.
+ending: true

@@ -5,39 +5,45 @@
 
 # Author BaeHyeonWoo
 
-if type -p java; then
-    echo "Found Java executable in PATH"
-    _java=java
-elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
-    echo "Found Java executable in JAVA_HOME."     
-    _java="$JAVA_HOME/bin/java"
-else
-    echo "Java was not found on this machine. Exiting."
-    exit
-fi
-
-if [[ "$_java" ]]; then
-    version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
-    echo version "$version"
-    if [[ "$version" < "16" ]]; then
-        echo "Your Java version is less than 16. Cannot run Minecraft Server with java verseion less than 16. Exiting."
-        exit
-    fi
-fi
-
 download() {
   wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -1
 }
 
 server=https://github.com/aroxu/server-script/releases/latest/download/server_linux_x64.zip
 
+if type -p bsdtar
+then
+    echo "Found Bsdtar in PATH"
+else
+    echo "Bsdtar was not found on this machine. Please install with your Package Manager. Exiting..."
+    exit
+fi
+
 for i in "${server[@]}"; do
   download_result=$(download "$i" "./.server")
   echo "$download_result <- $i"
 done
 
-cd ./.server
-unzip server_linux_x64.zip
-rm -rf ./server_linux_x64.zip
-chmod +x ./server
-./server
+
+if [ -d "./.server" ]
+then
+    cd .server || return
+else
+    mkdir .server
+    cd .server || return
+fi
+
+if [ -f "server_linux_x64.zip" ]
+then
+  bsdtar -xf server_linux_x64.zip -C "./"
+  rm -rf ./server_linux_x64.zip
+  chmod +x ./server
+  ./server
+else
+  echo "Something went wrong! Try manually download linux version server from: https://github.com/arxou/server-script/releases."
+  echo "Exiting..."
+  exit
+fi
+
+echo "Exiting..."
+exit

@@ -14,26 +14,23 @@
  * limitations under the License.
  */
 
-package com.baehyeonwoo.sample
+package com.baehyeonwoo.tntrun
 
-import net.kyori.adventure.text.Component
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.plugin.Plugin
+import com.baehyeonwoo.tntrun.commands.TNTCommand
+import org.bukkit.plugin.java.JavaPlugin
 
 /***
  * @author BaeHyeonWoo
  */
 
-class SampleEvent : Listener {
-    private fun getInstance(): Plugin {
-        return SamplePluginMain.instance
+class TNTMain : JavaPlugin() {
+    companion object {
+        lateinit var instance: TNTMain
+            private set
     }
-
-    @EventHandler
-    fun onPlayerJoin(e: PlayerJoinEvent) {
-        getInstance().logger.info("Hello World!")
-        e.player.sendMessage(Component.text().content("Hello World!").build())
+    override fun onEnable() {
+        instance = this
+        saveDefaultConfig()
+        TNTCommand.tntCommand()
     }
 }

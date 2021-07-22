@@ -1,22 +1,23 @@
 plugins {
-    kotlin("jvm") version "1.5.20"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    kotlin("jvm") version "1.5.21"
 }
 
 repositories {
-    mavenCentral() // 코드 한줄을 줄여주셨습니다 각별님 감사합니다
+    mavenCentral()
     maven("https://papermc.io/repo/repository/maven-public/") // PaperMC
 }
 
 dependencies {
+    compileOnly("io.github.monun:kommand-api:2.2.0")
+    compileOnly("io.github.monun:tap-api:4.1.1")
     compileOnly(kotlin("stdlib")) // Kotlin
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT") // Paper Latest
-    implementation("io.github.monun:kommand:1.2.0")
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT") // Paper Latest
 }
 
 tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "8" // 응 8로 내릴거야
+    jar {
+        archiveClassifier.set("dist")
+        archiveVersion.set("")
     }
     processResources {
         filesMatching("**/*.yml") {
@@ -24,12 +25,8 @@ tasks {
         }
         filteringCharset = "UTF-8"
     }
-    shadowJar {
-        archiveClassifier.set("dist")
-        archiveVersion.set("")
-    }
     create<Copy>("dist") {
-        from (shadowJar)
+        from (jar)
         into(".\\.server\\plugins")
     }
 }
