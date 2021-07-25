@@ -30,6 +30,12 @@ class TNTMain : JavaPlugin() {
     }
     override fun onEnable() {
         instance = this
+        val config = instance.config
+        logger.info("StopWatch: ${config.getBoolean("stopwatch")}")
+        logger.info("Block Edge Detection: ${config.getBoolean("block-edge-detection")}")
+        logger.info("Instant Portal: ${config.getBoolean("instant-portal")}")
+        logger.info("Ending: ${config.getBoolean("ending")}")
+        logger.info("Command usage: /tntrun")
         saveDefaultConfig()
         TNTCommand.tntCommand()
     }

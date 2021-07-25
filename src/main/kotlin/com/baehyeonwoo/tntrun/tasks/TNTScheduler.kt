@@ -18,7 +18,6 @@ package com.baehyeonwoo.tntrun.tasks
 import com.baehyeonwoo.tntrun.TNTMain
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.block.Container
 import org.bukkit.plugin.Plugin
 import org.bukkit.util.NumberConversions
 
@@ -35,8 +34,6 @@ class TNTScheduler : Runnable {
     private val config = getInstance().config
     
     private val blockEdgeDetection = config.getBoolean("block-edge-detection")
-    
-    private val containerEmpty = config.getBoolean("container-empty")
 
     override fun run() {
         Bukkit.getOnlinePlayers().forEach {
@@ -53,14 +50,7 @@ class TNTScheduler : Runnable {
                     for (x in minX..maxX) {
                         for (z in minZ..maxZ) {
                             val edgeBlock = it.world.getBlockAt(x, y, z)
-                            val edgeState = edgeBlock.state
                             if (!edgeBlock.type.isAir) {
-                                if (containerEmpty) {
-                                    if (edgeState is Container) {
-                                        edgeState.snapshotInventory.clear()
-                                        edgeState.update()
-                                    }
-                                }
                                 edgeBlock.type = Material.AIR
                             }
                         }
@@ -68,13 +58,6 @@ class TNTScheduler : Runnable {
                 }, 15)
             }
             getInstance().server.scheduler.runTaskLater(getInstance(), Runnable {
-                val state = pos.block.state
-                if (containerEmpty) {
-                    if (state is Container) {
-                        state.snapshotInventory.clear()
-                        state.update()
-                    }
-                }
                 pos.block.type = Material.AIR
             }, 15)
         }
