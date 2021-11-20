@@ -87,7 +87,7 @@
 
 - [komq](https://youtube.com/코마): 플레이 영상 제가, 버그 테스트
 - [Patrick Choe](https://github.com/patrick-choe): 코드 기여, 수정된 tap 패치 전달
-- [Coroskai](https://youtube.com/Coroskai): 영상 제작
+- [Coroskai](https://www.youtube.com/channel/UCcT5Osaz57WBlAwHnGB_lVA): 영상 제작
 - Twitter 지인분들 & 비웬코드 지인분들: 버그 테스트
 
 ---
